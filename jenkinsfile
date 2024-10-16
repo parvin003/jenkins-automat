@@ -1,23 +1,31 @@
 pipeline {
     agent any
-
+    triggers {
+        pollSCM('H/5 * * * *') // Polls every 5 minutes
+    }
     stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+                git branch: 'b1', url: 'https://github.com/parvin003/jenkins-automat.git'
+            }
+        }
         stage('Build') {
             steps {
-                echo 'Hello this is demo of pipeline Building the project...'
-                // Add build commands here
+                // Build your project
+                sh 'echo "Building the project..."'
             }
         }
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                // Add test commands here
+                // Run tests
+                sh 'echo "Running tests..."'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
-                // Add deployment commands here
+                // Deploy your application
+                sh 'echo "Deploying the application..."'
             }
         }
     }
